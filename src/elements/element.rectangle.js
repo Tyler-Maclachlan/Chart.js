@@ -163,6 +163,50 @@ export default class Rectangle extends Element {
 		ctx.restore();
 	}
 
+	drawDatalabel(ctx, text, options = {}) {
+		text += '';
+		const {
+			width: textWidth,
+			actualBoundingBoxAscent: textHeight1,
+			actualBoundingBoxDescent: textHeight2
+		} = ctx.measureText(text);
+
+		const textHeight = textHeight1 + textHeight2;
+		const {inner} = boundingRects(this);
+
+		if (inner.h > textHeight + options.offset && inner.w > textWidth + options.offset) {
+			ctx.save();
+			ctx.font = `${options.fontStyle} ${options.fontSize}px ${options.fontFamily}`;
+			ctx.fillStyle = options.fontColor;
+
+			const labelPos = this.getCenterPoint();
+			labelPos.x -= textWidth * 0.5;
+			const xTransform = inner.w * 0.5 - textWidth * 0.5 - options.offset;
+			const yTransform = inner.h * 0.5 - textHeight * 0.5 - options.offset;
+
+			switch (options.position) {
+			case 'right':
+				labelPos.x += xTransform;
+				break;
+			case 'left':
+				labelPos.x -= xTransform;
+				break;
+			case 'top':
+				labelPos.y -= yTransform;
+				break;
+			case 'bottom':
+				labelPos.y += yTransform;
+				break;
+			default:
+				break;
+			}
+
+			ctx.fillText(text, labelPos.x, labelPos.y);
+
+			ctx.restore();
+		}
+	}
+
 	inRange(mouseX, mouseY, useFinalPosition) {
 		return inRange(this, mouseX, mouseY, useFinalPosition);
 	}

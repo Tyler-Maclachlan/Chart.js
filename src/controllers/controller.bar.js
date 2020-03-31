@@ -18,6 +18,15 @@ defaults.set('bar', {
 				type: 'number',
 				properties: ['x', 'y', 'base', 'width', 'height']
 			}
+		},
+		dataLabels: {
+			enabled: false,
+			position: 'center',
+			offset: 0,
+			fontSize: defaults.fontSize,
+			fontColor: defaults.fontColor,
+			fontFamily: defaults.fontFamily,
+			fontStyle: defaults.fontStyle
 		}
 	},
 
@@ -479,13 +488,20 @@ export default class BarController extends DatasetController {
 		const vScale = meta.vScale;
 		const rects = meta.data;
 		const ilen = rects.length;
+		const data = me._data;
+		const config = me._config;
+
 		let i = 0;
+
 
 		clipArea(chart.ctx, chart.chartArea);
 
 		for (; i < ilen; ++i) {
 			if (!isNaN(me.getParsed(i)[vScale.axis])) {
 				rects[i].draw(me._ctx);
+				if (config.dataLabels.enabled) {
+					rects[i].drawDatalabel(me._ctx, data[i], config.dataLabels);
+				}
 			}
 		}
 
