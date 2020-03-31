@@ -11,6 +11,9 @@
 			title: 'Horizontal',
 			path: 'charts/bar/horizontal.html'
 		}, {
+			title: 'Data Labels',
+			path: 'charts/bar/datalabels.html'
+		}, {
 			title: 'Multi axis',
 			path: 'charts/bar/multi-axis.html'
 		}, {

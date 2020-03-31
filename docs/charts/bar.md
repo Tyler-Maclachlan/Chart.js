@@ -149,6 +149,7 @@ The bar chart accepts the following configuration from the associated dataset op
 | `barThickness` | <code>number&#124;string</code> | | Manually set width of each bar in pixels. If set to `'flex'`, it computes "optimal" sample widths that globally arrange bars side by side. If not set (default), bars are equally sized based on the smallest interval. [more...](#barthickness)
 | `maxBarThickness` | `number` | | Set this to ensure that bars are not sized thicker than this.
 | `minBarLength` | `number` | | Set this to ensure that bars have a minimum length in pixels.
+| `dataLabels` | `Object` | | Set this to control how datalabels are displayed in the bar [more...](#dataLabels)
 
 ### Example Usage
 
@@ -171,6 +172,35 @@ If this value is a number, it is applied to the width of each bar, in pixels. Wh
 If set to `'flex'`, the base sample widths are calculated automatically based on the previous and following samples so that they take the full available widths without overlap. Then, bars are sized using `barPercentage` and `categoryPercentage`. There is no gap when the percentage options are 1. This mode generates bars with different widths when data are not evenly spaced.
 
 If not set (default), the base sample widths are calculated using the smallest interval that prevents bar overlapping, and bars are sized using `barPercentage` and `categoryPercentage`. This mode always generates bars equally sized.
+
+### dataLabels
+
+Set how datalabels are displayed within the bars.
+
+| Name | Type | Default | Description
+| ---- | ---- | ------- | -----------
+| `enabled` | `boolean` | `false` | If true, show data labels.
+| `position` | `string` | `center` | Set the position of the data label in the bar, available options: `left`, `center`, `right`, `top`, `bottom`.
+| `offset` | `number` | `0` | How much should the data label be padded from the side of the bar.
+| `fontSize` | `number` | `Chart.defaults.fontSize` | The font size of the data label.
+| `fontFamily` | `string` | `Chart.defaults.fontFamily` | The font the label should be displayed in.
+| `fontColor` | `string` | `Chart.defaults.fontColor` | The color of the label text.
+| `fontStyle` | `string` | `Chart.defaults.fontStyle` | The display style of the font, such as `bold`.
+
+### Example Usage
+
+```javascript
+data: {
+    datasets: [{
+		data: [10, 20, 30, 40, 50, 60, 70],
+		dataLabels: {
+			enabled: true,
+			position: 'center',
+			offset: 5
+		}
+    }]
+};
+```
 
 ## Scale Configuration
 
